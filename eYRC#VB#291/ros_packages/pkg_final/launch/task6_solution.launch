@@ -1,0 +1,37 @@
+<launch>
+	
+    <rosparam file ="$(find pkg_task6)/config/vacuum_gripper_status.yaml"/>
+    <rosparam file ="$(find pkg_ros_iot_bridge)/config/config_pyiot.yaml"/>
+    
+    <!-- Launch Task-5 Simulation Environment in Gazebo -->
+    <include file="$(find pkg_vb_sim)/launch/task6_simulation.launch" />
+    <include file="$(find pkg_vb_sim)/launch/two_ur5_move_group.launch" />
+    
+    <!-- This node is for accepting goals from mqtt and publish them on a topic -->
+    <!-- It also pushes data to google spreadsheer -->
+    <node name= "node_action_server_ros_iot_bridge" pkg= "pkg_ros_iot_bridge" type="node_action_server_ros_iot_bridge.py" output="screen"/>
+    
+    <!-- This node is to control the conveyor belt -->
+    <!-- It also tells ur5_2 if a package is below logical_camera_2 or not -->
+    <node name= "node_conveyor_belt" pkg= "pkg_task6" type="node_conveyor_belt.py" output="screen"/>
+    
+    <!-- This node is to control both ur5 models, it sends goals to both ur5 model-->
+    <!-- It also send goal to ros_iot_action_server_bridge to push data to google sheet -->
+    <node name= "node_ur5_master" pkg= "pkg_task6" type="node_ur5_master.py" output="screen"/>
+    
+    <!-- This node is for placing packages from shelf to conveyor belt -->
+    <node name= "node_ur5_1" pkg= "pkg_task6" type="node_ur5_1.py" output="screen"/>
+
+    <!-- This node is for placing packages from conveyor belt to respective bins -->
+    <node name= "node_ur5_2" pkg= "pkg_task6" type="node_ur5_2.py" output="screen"/>
+
+    <!-- Recording Bag File for Submission -->
+    <arg name="record" default="false"/>
+    <arg name="rec_name" default="t6.bag"/>
+
+    <group if="$(arg record)">
+        <node name="rosbag_record_pick" pkg="rosbag" type="record"
+       args="record -O $(find pkg_task6)/bag_files/$(arg rec_name) --chunksize=10 /eyrc/vb/ur5_1/vacuum_gripper/logical_camera/ur5_1 /eyrc/vb/ur5_2/vacuum_gripper/logical_camera/ur5_2" output="screen"/>
+    </group>
+    
+</launch>

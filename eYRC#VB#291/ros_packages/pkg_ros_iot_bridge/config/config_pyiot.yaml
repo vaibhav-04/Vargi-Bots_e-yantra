@@ -1,0 +1,16 @@
+# config_iot_ros.yaml 
+# IoT Configuration
+config_pyiot:
+  mqtt:
+    server_url: "broker.mqttdashboard.com"        # http://www.hivemq.com/demos/websocket-client/
+    server_port: 1883
+    topic_sub: "/eyrc/vb/dbMBsyVV/orders"          # <unique_id> = dbMBsyVV
+    topic_pub: "eyrc/dbMBsyVV/ros_to_iot"          # <unique_id> = dbMBsyVV
+    qos: 0
+
+    sub_cb_ros_topic: "/ros_iot_bridge/mqtt/sub"   # ROS nodes can listen to this topic to receive data from MQTT
+  google_apps:
+    spread_sheet_id: "AKfycbyXDwg9QpiKt6WQB0NplXy9t2-Iun-1rbH9gc1OoqK9lEW81WDZgLNM6g" # Spreadsheet Id/Webapp Id
+    submission_spread_sheet_id: "AKfycbw5xylppoda-8HPjt2Tzq4ShU_Xef-Ik-hEtBPcPk0gdGw8095j4RZ7" # Eyantra Spreadsheet Id/Webapp Id
+
+

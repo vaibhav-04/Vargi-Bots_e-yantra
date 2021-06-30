@@ -1,0 +1,18 @@
+# goal
+string priority
+pkg_ros_iot_bridge/msgMqttSub order_data
+---
+# result
+bool flag_success
+string order_id
+string city
+string item
+string priority
+string shipped_qty
+string cost
+string shipped_status
+string shipped_time
+---
+# feedback
+int8 percentage_complete
+

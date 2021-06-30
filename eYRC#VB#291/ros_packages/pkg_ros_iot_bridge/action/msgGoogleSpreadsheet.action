@@ -1,0 +1,9 @@
+# goal
+string sheet_id
+string[] data
+---
+# result
+bool flag_success
+---
+# feedback
+int8 percentage_complete

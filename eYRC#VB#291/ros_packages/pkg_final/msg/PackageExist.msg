@@ -1,0 +1,1 @@
+bool package_exist
